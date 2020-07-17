@@ -20,11 +20,12 @@ public class ManageBookServiceImpl implements ManageBookService {
 	
 	@Override
 	public String deleteBook(int bookId) throws BookException {
-		if(dao.deleteBook(bookId)) {
+	
+		if(dao.bookExists(bookId)) {
+			dao.deleteBook(bookId);
 			return "Book deleted";
 		}
-		
-		throw new BookException("Book not found");
+		throw new BookException("Book does not exist!");
 	}
 	
 	public String createBook(BookInformation book) throws BookException{

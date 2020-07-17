@@ -32,7 +32,7 @@ public class ManageCategoryServiceImpl implements ManageCategoryService{
 			throw new CategoryException("Category name cannot be less than 5 characters and more than 30");
 		}
 		
-		if(dao.findCategory(categoryName)) {
+		if(dao.categoryExists(categoryName)) {
 			throw new CategoryException("Category already exists");
 		}
 		
@@ -44,20 +44,22 @@ public class ManageCategoryServiceImpl implements ManageCategoryService{
 
 	@Override
 	public String deleteCategory(int categoryId) throws CategoryException {
-		// TODO Auto-generated method stub
-		return null;
+		if(dao.categoryExists(categoryId)) {
+			dao.deleteCategory(categoryId);
+			return "Category deleted";
+		}
+		throw new CategoryException("Category does not exists");
 	}
 
 	@Override
 	public String updateCategory(BookCategory category) throws CategoryException {
-		// TODO Auto-generated method stub
-		return null;
+		if(dao.updateCategory(category)) {
+			return "Category Updated";
+		}
+		throw new CategoryException("Category already exists, use another name");
 	}
 
-	@Override
-	public String displayCategory(int categoryId) throws CategoryException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 	
 }

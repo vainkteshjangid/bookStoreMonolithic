@@ -22,18 +22,18 @@ public class ManageCategoryController {
 		return service.createCategory(category);
 	}
 	
-	@GetMapping("manageCategory/delete/{categoryId}")
+	@GetMapping("/manageCategory/delete/{categoryId}")
 	public String deleteCategory(@PathVariable(name="categoryId") int categoryId) throws CategoryException {
 		return service.deleteCategory(categoryId);
 	}
 	
-	@PostMapping("manageCategory/update")
+	@PostMapping("/manageCategory/update")
 	public String updateCategory(@RequestBody BookCategory category) throws CategoryException {
 		return service.updateCategory(category);
 	}
 	
-	@GetMapping("manageCategory/display/{categoryId}")
+	/*@GetMapping("manageCategory/display/{categoryId}")
 	public String displayCategory(@PathVariable(name="categoryId") int categoryId) throws CategoryException {
 		return service.displayCategory(categoryId);
-	}
+	}*/
 }
