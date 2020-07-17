@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.cg.bookStore.dao.BookStoreDao;
 import com.cg.bookStore.entities.BookCategory;
 import com.cg.bookStore.exceptions.CategoryException;
+import com.cg.bookStore.util.BookStoreConstants;
 
 @Service
 @Transactional
@@ -25,19 +26,19 @@ public class ManageCategoryServiceImpl implements ManageCategoryService{
 		
 		System.out.println(LocalDate.now());
 		if(categoryName.isEmpty()) {
-			throw new CategoryException("Cannot add empty category");
+			throw new CategoryException(BookStoreConstants.EMPTY_CATEGORY);
 		}
 		
 		if(categoryName.length()<5 || categoryName.length()>30) {
-			throw new CategoryException("Category name cannot be less than 5 characters and more than 30");
+			throw new CategoryException(BookStoreConstants.CATEGORY_VALIDATION);
 		}
 		
 		if(dao.categoryExists(categoryName)) {
-			throw new CategoryException("Category already exists");
+			throw new CategoryException(BookStoreConstants.CATEGORY_EXISTS);
 		}
 		
 		dao.createCategory(category);
-		return "Category added";
+		return BookStoreConstants.CATEGORY_ADDED;
 		
 		
 	}
@@ -46,9 +47,9 @@ public class ManageCategoryServiceImpl implements ManageCategoryService{
 	public String deleteCategory(int categoryId) throws CategoryException {
 		if(dao.categoryExists(categoryId)) {
 			dao.deleteCategory(categoryId);
-			return "Category deleted";
+			return BookStoreConstants.CATEGORY_DELETED;
 		}
-		throw new CategoryException("Category does not exists");
+		throw new CategoryException(BookStoreConstants.CATEGORY_DOES_NOT_EXIST);
 	}
 
 	@Override
@@ -56,12 +57,12 @@ public class ManageCategoryServiceImpl implements ManageCategoryService{
 		
 		if(dao.categoryExists(category.getCategoryId())) {
 			if(dao.updateCategory(category)) {
-				return "Category Updated";
+				return BookStoreConstants.CATEGORY_UPDATED;
 			}
-			throw new CategoryException("Category already exists, use another name");
+			throw new CategoryException(BookStoreConstants.CATEGORY_EXISTS);
 		}
 		
-		throw new CategoryException("Category Does exist, cannot be updated");
+		throw new CategoryException(BookStoreConstants.CATEGORY_DOES_NOT_EXIST);
 	}
 
 

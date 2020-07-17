@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.cg.bookStore.dao.BookStoreDao;
 import com.cg.bookStore.entities.BookInformation;
 import com.cg.bookStore.exceptions.BookException;
+import com.cg.bookStore.util.BookStoreConstants;
 
 @Service
 @Transactional
@@ -22,9 +23,9 @@ public class ManageBookServiceImpl implements ManageBookService {
 	public String deleteBook(int bookId) throws BookException {
 		if(dao.bookExists(bookId)) {
 			dao.deleteBook(bookId);
-			return "Book deleted";
+			return BookStoreConstants.BOOK_DELETED;
 		}
-		throw new BookException("Book does not exist!");
+		throw new BookException(BookStoreConstants.BOOK_DOES_NOT_EXIST);
 	}
 	
 	public String createBook(BookInformation book) throws BookException{
@@ -67,27 +68,27 @@ public class ManageBookServiceImpl implements ManageBookService {
 		if(ISBNnum.length()<10 || ISBNnum.length()>15) {
 			throw new BookException("ISBN number cannot be less than 10 characters and more than 15");
 		}
-		return "added";
+		return BookStoreConstants.BOOK_ADDED;
 		
 
 	}
 	
 	public String updateBook(BookInformation book) throws BookException{
 		if(dao.bookExists(book.getTitle())) {
-			throw new BookException("Book with same name already Exist!!!");
+			throw new BookException(BookStoreConstants.BOOK_EXISTS);
 		}
 		else {
 			if(dao.updateBookInfo(book)) {
-				return "Book Updated Successfully";
+				return BookStoreConstants.BOOK_UPDATED;
 			}
 		}
-		throw new BookException("ERROR!!!... Book Not Updated!");
+		throw new BookException(BookStoreConstants.BOOK_ERROR);
 	}
 	
 	public List<BookInformation> displayBooks() throws BookException{
 		List<BookInformation>  allBooks= dao.listAllBooks();
 		if(allBooks.isEmpty()) {
-			throw new BookException("Ooops!!!There is no book");
+			throw new BookException(BookStoreConstants.BOOK_DOES_NOT_EXIST);
 		}
 		
 		return allBooks;
