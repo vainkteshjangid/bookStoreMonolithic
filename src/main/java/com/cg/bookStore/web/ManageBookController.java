@@ -34,8 +34,8 @@ public class ManageBookController {
 		return service.updateBook(book);
 	}
 	
-	@GetMapping("manageBook/display/{bookId}")
-	public List<BookInformation> displayBook(@PathVariable(name="bookId") int bookId) throws BookException {
+	@GetMapping("manageBook/display")
+	public List<BookInformation> displayBooks() throws BookException {
 		return service.displayBooks();
 	}
 }

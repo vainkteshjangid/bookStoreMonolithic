@@ -57,4 +57,10 @@ public class BookStoreDaoImpl implements BookStoreDao {
 		List<BookInformation> listAllBooks=query.getResultList();
 		return listAllBooks;
 	}
+
+	@Override
+	public boolean updateBookInfo(BookInformation bookInfo) {
+		em.merge(bookInfo);
+		return true;
+	}
 }

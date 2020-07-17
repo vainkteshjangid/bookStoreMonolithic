@@ -14,4 +14,6 @@ public interface BookStoreDao {
 	public boolean addBook(BookInformation bookInfo);
 	
 	public List<BookInformation> listAllBooks();
+	
+	boolean updateBookInfo(BookInformation bookInfo);
 }

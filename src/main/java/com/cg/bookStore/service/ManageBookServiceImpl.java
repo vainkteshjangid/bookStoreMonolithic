@@ -73,7 +73,10 @@ public class ManageBookServiceImpl implements ManageBookService {
 	}
 	
 	public String updateBook(BookInformation book) throws BookException{
-		return "";
+		if(dao.updateBookInfo(book)) {
+			return "Book Updated Successfully";
+		}
+		throw new BookException("ERROR!!!... Book Not Updated!");
 	}
 	
 	public List<BookInformation> displayBooks() throws BookException{
