@@ -53,10 +53,15 @@ public class ManageCategoryServiceImpl implements ManageCategoryService{
 
 	@Override
 	public String updateCategory(BookCategory category) throws CategoryException {
-		if(dao.updateCategory(category)) {
-			return "Category Updated";
+		
+		if(dao.categoryExists(category.getCategoryId())) {
+			if(dao.updateCategory(category)) {
+				return "Category Updated";
+			}
+			throw new CategoryException("Category already exists, use another name");
 		}
-		throw new CategoryException("Category already exists, use another name");
+		
+		throw new CategoryException("Category Does exist, cannot be updated");
 	}
 
 
