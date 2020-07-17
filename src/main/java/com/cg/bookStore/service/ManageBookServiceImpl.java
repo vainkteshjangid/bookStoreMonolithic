@@ -20,7 +20,6 @@ public class ManageBookServiceImpl implements ManageBookService {
 	
 	@Override
 	public String deleteBook(int bookId) throws BookException {
-	
 		if(dao.bookExists(bookId)) {
 			dao.deleteBook(bookId);
 			return "Book deleted";
