@@ -35,38 +35,38 @@ public class ManageBookServiceImpl implements ManageBookService {
 		String ISBNnum=book.getIsbnNumber();
 		
 		if(bookTitle.isEmpty()) {
-			throw new BookException("Cannot add empty book title");
+			throw new BookException(BookStoreConstants.BOOK_VALIDATION_TITLE_EMPTY);
 		}
 		
 		if(bookTitle.length()<5 || bookTitle.length()>128) {
-			throw new BookException("book title cannot be less than 5 characters and more than 30");
+			throw new BookException(BookStoreConstants.BOOK_VALIDATION_TITLE);
 		}
 		
 		
 		if(bookDesc.isEmpty()) {
-			throw new BookException("Cannot add empty book description");
+			throw new BookException(BookStoreConstants.BOOK_VALIDATION_DESSCRIPTION_EMPTY);
 		}
 		
 		if(bookDesc.length()<200 || bookDesc.length()>2000) {
-			throw new BookException("book description cannot be less than 200 characters and more than 2000");
+			throw new BookException(BookStoreConstants.BOOK_VALIDATION_DECRIPTION_);
 		}
 		
 		
 		if(bookAuthor.isEmpty()) {
-			throw new BookException("Cannot add empty author name");
+			throw new BookException(BookStoreConstants.BOOK_VALIDATION_AUTHOR_EMPTY);
 		}
 		
 		if(bookAuthor.length()<5 || bookAuthor.length()>65) {
-			throw new BookException("author name cannot be less than 5 characters and more than 65");
+			throw new BookException(BookStoreConstants.BOOK_VALIDATION_AUTHOR_);
 		}
 		
 		
 		if(ISBNnum.isEmpty()) {
-			throw new BookException("Cannot add empty ISBN number");
+			throw new BookException(BookStoreConstants.BOOK_VALIDATION_ISBN_EMPTY);
 		}
 		
 		if(ISBNnum.length()<10 || ISBNnum.length()>15) {
-			throw new BookException("ISBN number cannot be less than 10 characters and more than 15");
+			throw new BookException(BookStoreConstants.BOOK_VALIDATION_ISBN_);
 		}
 		return BookStoreConstants.BOOK_ADDED;
 		
