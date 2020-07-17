@@ -73,8 +73,13 @@ public class ManageBookServiceImpl implements ManageBookService {
 	}
 	
 	public String updateBook(BookInformation book) throws BookException{
-		if(dao.updateBookInfo(book)) {
-			return "Book Updated Successfully";
+		if(dao.bookExists(book.getTitle())) {
+			throw new BookException("Book with same name already Exist!!!");
+		}
+		else {
+			if(dao.updateBookInfo(book)) {
+				return "Book Updated Successfully";
+			}
 		}
 		throw new BookException("ERROR!!!... Book Not Updated!");
 	}

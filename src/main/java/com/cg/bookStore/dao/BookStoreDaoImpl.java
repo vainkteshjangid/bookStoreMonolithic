@@ -108,5 +108,16 @@ public class BookStoreDaoImpl implements BookStoreDao {
 			em.remove(category);
 			return true;
 	}
+	
+	public boolean bookExists(String bookName) {
+		String jpql = "from BookInformation b where b.title=:cName";
+		TypedQuery<BookInformation> query = em.createQuery(jpql, BookInformation.class);
+		query.setParameter("cName",bookName);
+	    List<BookInformation> existingCat = query.getResultList();
+	    if(existingCat.isEmpty()) {
+	    	return false;
+	    }
+	    return true;
+	}
 
 }
