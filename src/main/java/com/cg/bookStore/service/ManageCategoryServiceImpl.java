@@ -1,5 +1,7 @@
 package com.cg.bookStore.service;
 
+import java.time.LocalDate;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class ManageCategoryServiceImpl implements ManageCategoryService{
 		String categoryName = category.getCategoryName();
 		categoryName = categoryName.toLowerCase();
 		
+		System.out.println(LocalDate.now());
 		if(categoryName.isEmpty()) {
 			throw new CategoryException("Cannot add empty category");
 		}

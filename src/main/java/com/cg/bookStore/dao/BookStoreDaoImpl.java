@@ -50,4 +50,11 @@ public class BookStoreDaoImpl implements BookStoreDao {
 		em.persist(bookInfo);
 		return true;
 	}
+	
+	public List<BookInformation> listAllBooks() {
+		String Qstr="SELECT bookInformation FROM BookInformation bookInformation";
+		TypedQuery<BookInformation> query=em.createQuery(Qstr,BookInformation.class);
+		List<BookInformation> listAllBooks=query.getResultList();
+		return listAllBooks;
+	}
 }
