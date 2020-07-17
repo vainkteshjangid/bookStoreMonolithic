@@ -29,7 +29,7 @@ public class ManageBookServiceImpl implements ManageBookService {
 	}
 	
 	public String createBook(BookInformation book) throws BookException{
-		String bookTitle=book.getTitle();
+		/*String bookTitle=book.getTitle();
 		String bookDesc=book.getDescription();
 		String bookAuthor=book.getAuthor();
 		String ISBNnum=book.getIsbnNumber();
@@ -62,13 +62,18 @@ public class ManageBookServiceImpl implements ManageBookService {
 		
 		
 		if(ISBNnum.isEmpty()) {
-			throw new BookException(BookStoreConstants.BOOK_VALIDATION_ISBN_EMPTY);
+			8throw new BookException(BookStoreConstants.BOOK_VALIDATION_ISBN_EMPTY);
 		}
 		
 		if(ISBNnum.length()<10 || ISBNnum.length()>15) {
 			throw new BookException(BookStoreConstants.BOOK_VALIDATION_ISBN_);
 		}
-		return BookStoreConstants.BOOK_ADDED;
+		*/
+		if(dao.addBook(book)) {
+			return BookStoreConstants.BOOK_ADDED;
+		}
+		
+		return BookStoreConstants.BOOK_ERROR;
 		
 
 	}
