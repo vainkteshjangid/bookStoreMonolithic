@@ -17,17 +17,17 @@ import com.cg.bookStore.entities.BookInformation;
 public class BookStoreDaoImpl implements BookStoreDao {
 
 	@PersistenceContext
-	private EntityManager em;
+	private EntityManager entitiManager;
 
 	@Override
 	public boolean createCategory(BookCategory category){
-		em.persist(category);
+		entitiManager.persist(category);
 		return true;
 	}
 	
 	public boolean categoryExists(String categoryName) {
 		String jpql = "from BookCategory b where b.categoryName=:cName";
-		TypedQuery<BookCategory> query = em.createQuery(jpql, BookCategory.class);
+		TypedQuery<BookCategory> query = entitiManager.createQuery(jpql, BookCategory.class);
 		query.setParameter("cName",categoryName);
 	    List<BookCategory> existingCat = query.getResultList();
 	    if(existingCat.isEmpty()) {
@@ -38,7 +38,7 @@ public class BookStoreDaoImpl implements BookStoreDao {
 	
 	public boolean categoryExists(int categoryId) {
 		String jpql = "from BookCategory b where b.categoryId=:cId";
-		TypedQuery<BookCategory> query = em.createQuery(jpql, BookCategory.class);
+		TypedQuery<BookCategory> query = entitiManager.createQuery(jpql, BookCategory.class);
 		query.setParameter("cId",categoryId);
 	    List<BookCategory> existingCat = query.getResultList();
 	    if(existingCat.isEmpty()) {
@@ -49,7 +49,7 @@ public class BookStoreDaoImpl implements BookStoreDao {
 	
 	public boolean bookExists(int bookId) {
 		String jpql = "from BookInformation b where b.bookId=:bId";
-		TypedQuery<BookInformation> query = em.createQuery(jpql, BookInformation.class);
+		TypedQuery<BookInformation> query = entitiManager.createQuery(jpql, BookInformation.class);
 		query.setParameter("bId",bookId);
 	    List<BookInformation> existingCat = query.getResultList();
 	    if(existingCat.isEmpty()) {
@@ -60,41 +60,41 @@ public class BookStoreDaoImpl implements BookStoreDao {
 
 	@Override
 	public boolean deleteBook(int bookId) {
-		BookInformation book = em.find(BookInformation.class,bookId);
-		em.remove(book);
+		BookInformation book = entitiManager.find(BookInformation.class,bookId);
+		entitiManager.remove(book);
 		return true;
 	}
 	
 
 	@Override
 	public boolean addBook(BookInformation bookInfo) {
-		em.persist(bookInfo);
+		entitiManager.persist(bookInfo);
 		return true;
 	}
 	
 	public List<BookInformation> listAllBooks() {
 		String Qstr="SELECT bookInformation FROM BookInformation bookInformation";
-		TypedQuery<BookInformation> query=em.createQuery(Qstr,BookInformation.class);
+		TypedQuery<BookInformation> query=entitiManager.createQuery(Qstr,BookInformation.class);
 		List<BookInformation> listAllBooks=query.getResultList();
 		return listAllBooks;
 	}
 
 	@Override
 	public boolean updateBookInfo(BookInformation bookInfo) {
-		em.merge(bookInfo);
+		entitiManager.merge(bookInfo);
 		return true;
 	}
 
 	@Override
 	public boolean updateCategory(BookCategory category) {
 		String str="SELECT category FROM BookCategory category WHERE category.categoryName=:newCategoryName";
-		TypedQuery<BookCategory> query=em.createQuery(str,BookCategory.class);
+		TypedQuery<BookCategory> query=entitiManager.createQuery(str,BookCategory.class);
 		query.setParameter("newCategoryName", category.getCategoryName());
 		try {
 			query.getSingleResult();
 		}catch(NoResultException e) {
 			String str2="update BookCategory category set category.categoryName=:newCategoryName where category.categoryId=:id";
-			Query query2=em.createQuery(str2);
+			Query query2=entitiManager.createQuery(str2);
 			query2.setParameter("newCategoryName", category.getCategoryName());
 			query2.setParameter("id", category.getCategoryId());
 			query2.executeUpdate();
@@ -104,14 +104,14 @@ public class BookStoreDaoImpl implements BookStoreDao {
 	}
 	
 	public boolean deleteCategory(int categoryId) {
-			BookCategory category = em.find(BookCategory.class,categoryId);
-			em.remove(category);
+			BookCategory category = entitiManager.find(BookCategory.class,categoryId);
+			entitiManager.remove(category);
 			return true;
 	}
 	
 	public boolean bookExists(String bookName) {
 		String jpql = "from BookInformation b where b.title=:cName";
-		TypedQuery<BookInformation> query = em.createQuery(jpql, BookInformation.class);
+		TypedQuery<BookInformation> query = entitiManager.createQuery(jpql, BookInformation.class);
 		query.setParameter("cName",bookName);
 	    List<BookInformation> existingCat = query.getResultList();
 	    if(existingCat.isEmpty()) {

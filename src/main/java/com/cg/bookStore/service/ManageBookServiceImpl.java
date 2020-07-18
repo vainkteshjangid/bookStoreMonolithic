@@ -17,12 +17,12 @@ import com.cg.bookStore.util.BookStoreConstants;
 public class ManageBookServiceImpl implements ManageBookService {
 
 	@Autowired
-	private BookStoreDao dao;
+	private BookStoreDao bookStoreDao;
 	
 	@Override
 	public String deleteBook(int bookId) throws BookException {
-		if(dao.bookExists(bookId)) {
-			dao.deleteBook(bookId);
+		if(bookStoreDao.bookExists(bookId)) {
+			bookStoreDao.deleteBook(bookId);
 			return BookStoreConstants.BOOK_DELETED;
 		}
 		throw new BookException(BookStoreConstants.BOOK_DOES_NOT_EXIST);
@@ -69,7 +69,7 @@ public class ManageBookServiceImpl implements ManageBookService {
 			throw new BookException(BookStoreConstants.BOOK_VALIDATION_ISBN_);
 		}
 		
-		if(dao.addBook(book)) {
+		if(bookStoreDao.addBook(book)) {
 			return BookStoreConstants.BOOK_ADDED;
 		}
 		
@@ -79,11 +79,11 @@ public class ManageBookServiceImpl implements ManageBookService {
 	}
 	
 	public String updateBook(BookInformation book) throws BookException{
-		if(dao.bookExists(book.getTitle())) {
+		if(bookStoreDao.bookExists(book.getTitle())) {
 			throw new BookException(BookStoreConstants.BOOK_EXISTS);
 		}
 		else {
-			if(dao.updateBookInfo(book)) {
+			if(bookStoreDao.updateBookInfo(book)) {
 				return BookStoreConstants.BOOK_UPDATED;
 			}
 		}
@@ -91,7 +91,7 @@ public class ManageBookServiceImpl implements ManageBookService {
 	}
 	
 	public List<BookInformation> displayBooks() throws BookException{
-		List<BookInformation>  allBooks= dao.listAllBooks();
+		List<BookInformation>  allBooks= bookStoreDao.listAllBooks();
 		if(allBooks.isEmpty()) {
 			throw new BookException(BookStoreConstants.BOOK_DOES_NOT_EXIST);
 		}
