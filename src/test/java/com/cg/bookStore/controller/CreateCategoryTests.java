@@ -1,4 +1,4 @@
- package com.cg.bookStore;
+ package com.cg.bookStore.controller;
  
  import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,9 +30,10 @@ public class CreateCategoryTests {
 	@Test
 	public void testCreateCategoryNull() throws Exception {
 		String categoryJson = "{\"categoryName\":\"\"}";
-		String expectedResult="Cannot add empty category";
+		String expectedResult="Cannot empty category";
 		Mockito.when(
 				service.createCategory(Mockito.any(BookCategory.class))).thenReturn(expectedResult);
+
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/manageCategory/create").accept(MediaType.APPLICATION_JSON).content(categoryJson).contentType(MediaType.APPLICATION_JSON);
 		
 		mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.content()
